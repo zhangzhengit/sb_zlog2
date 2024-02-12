@@ -33,6 +33,15 @@ public class R {
 		return Integer.parseInt(v);
 	}
 
+	public static Long readLong(final String key) {
+		final String v = propertiesConfiguration.getString(key);
+		if (StrUtil.isEmpty(v)) {
+			return null;
+		}
+
+		return Long.parseLong(v);
+	}
+
 	public static String readString(final String key) {
 		final String v = propertiesConfiguration.getString(key);
 		return v;
