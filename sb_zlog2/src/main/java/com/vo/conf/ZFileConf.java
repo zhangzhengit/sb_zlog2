@@ -35,6 +35,11 @@ public class ZFileConf {
 
 	private String fileName;
 
+	/**
+	 * 日志文件最大多少个MB，超过此大小，则就文件rename，新建一个文件继续写入。
+	 */
+	private Long fileSize;
+
 	private List<String> excludedClass;
 
 	private List<String> excludedPackage;
@@ -42,7 +47,6 @@ public class ZFileConf {
 	public String getOutTypeEnum() {
 		return this.outTypeEnum;
 	}
-
 
 	public void setOutTypeEnum(final String outTypeEnum) {
 		if (StrUtil.isEmpty(outTypeEnum)) {
@@ -135,6 +139,23 @@ public class ZFileConf {
 			throw new IllegalArgumentException("zlog.file.fileName 不能为空");
 		}
 		this.fileName = fileName;
+	}
+
+
+	public Long getFileSize() {
+		return this.fileSize;
+	}
+
+	public void setFileSize(final Long fileSize) {
+		if (fileSize == null) {
+			throw new IllegalArgumentException("zlog.file.fileSize 不能为空");
+		}
+
+		if (fileSize.longValue() <= 0) {
+			throw new IllegalArgumentException("zlog.file.fileSize 必须大于0");
+		}
+
+		this.fileSize = fileSize;
 	}
 
 }
