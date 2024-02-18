@@ -1,5 +1,9 @@
 package com.vo.log.enums;
 
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
+
 import com.vo.core.ZGlobalCache;
 import com.vo.core.ZThreadMap.ZGlobalCacheTypeEnum;
 
@@ -34,6 +38,25 @@ public enum ZLPatternEnum {
 				if (currentMI <= -1) {
 					break;
 				}
+
+
+				// FIXME 2024年2月18日 下午6:14:02 zhanghen: TODO : 做功能：可以通过配置来指定某些Class或者package输出什么级别的日志
+				final Object object = ZGlobalCache.get(ZGlobalCacheTypeEnum.LOG_XXX_CLASS_NAME);
+				final String key = "zlog2.log.level";
+				final String property = System.getProperty(key);
+				final Properties p= System.getProperties();
+
+				final Set<Entry<Object, Object>> ks = p.entrySet();
+
+				for (final Entry<Object, Object> entry : ks) {
+
+					final boolean startsWith = entry.getKey().toString().startsWith(key);
+					if(startsWith) {
+						System.out.println("OK = " + entry);
+					}
+				}
+
+
 				final String className = String.valueOf(ZGlobalCache.get(ZGlobalCacheTypeEnum.LOG_XXX_CLASS_NAME));
 				messageBuilder.replace(currentMI, currentMI + this.getPattern().length(), className);
 				fromIndex = currentMI + Math.min(className.length(), this.getPattern().length());
@@ -109,6 +132,7 @@ public enum ZLPatternEnum {
 				if (currentMI <= -1) {
 					break;
 				}
+
 				final String name = String.valueOf(ZGlobalCache.get(ZGlobalCacheTypeEnum.LOG_XXX_LEVEL));
 				messageBuilder.replace(currentMI, currentMI + this.getPattern().length(), name);
 				fromIndex = currentMI + Math.min(name.length(), this.getPattern().length());
