@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2022-1-11 18:01:37
  *
  */
-@SpringBootApplication
+//@SpringBootApplication
 public class SbZlog2Application {
 
 	public static void main(final String[] args) {

@@ -8,7 +8,7 @@ import com.vo.core.ZLog2;
 
 import cn.hutool.log.Log;
 
-@SpringBootTest
+//@SpringBootTest
 class SbZlog2ApplicationTests {
 
 	static final ZLog2 LOG = ZLog2.getInstance();
