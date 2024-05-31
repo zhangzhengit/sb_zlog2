@@ -17,9 +17,11 @@ import com.vo.handler.ZConsoleHandler;
 import com.vo.handler.ZDBHandler;
 import com.vo.handler.ZFileHandler;
 import com.vo.handler.ZLogCenterHandler;
+import com.vo.log.enums.ZLPatternEnum;
 import com.vo.read.R;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 输出日志
@@ -100,6 +102,7 @@ public final class ZLog2 {
 		final ZFileHandler fileHandler = new ZFileHandler(fileConf);
 		ZLogHanderCache.add(fileHandler);
 	}
+
 
 	private static void initlogCenterHandler() {
 
@@ -226,4 +229,22 @@ public final class ZLog2 {
 		}
 	}
 
+
+	/**
+	 * 	启动时校验pattern是否合理（必须为合理值）
+	 */
+	private static void checkPattern(final String pattern) {
+		if(StrUtil.isEmpty(pattern)) {
+			throw new IllegalArgumentException("pattern 不能为空");
+		}
+
+		final ZLPatternEnum[] vs = ZLPatternEnum.values();
+		for (final ZLPatternEnum e : vs) {
+			final String p = e.getPattern();
+			// FIXME 2024年5月31日 下午1:26:38 zhangzhen : 写这里
+		}
+
+
+
+	}
 }
