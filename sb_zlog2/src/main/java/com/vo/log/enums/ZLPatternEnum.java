@@ -7,9 +7,6 @@ import java.util.Set;
 import com.vo.core.ZGlobalCache;
 import com.vo.core.ZThreadMap.ZGlobalCacheTypeEnum;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * pattern枚举
  *
@@ -17,8 +14,6 @@ import lombok.Getter;
  * @date 2020-12-17
  *
  */
-@Getter
-@AllArgsConstructor
 public enum ZLPatternEnum {
 
 	MESSAGE("%MESSAGE", "要输出的日志内容,{}占位符可选") {
@@ -219,6 +214,22 @@ public enum ZLPatternEnum {
 	 */
 	private final String pattern;
 	private final String remark;
+
+
+	ZLPatternEnum(final String pattern, final String remark) {
+		this.pattern = pattern;
+		this.remark = remark;
+	}
+
+	public String getPattern() {
+		return this.pattern;
+	}
+
+
+	public String getRemark() {
+		return this.remark;
+	}
+
 
 	/**
 	 * 每个枚举值重写此方法去处理自己的内容

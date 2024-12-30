@@ -1,7 +1,8 @@
 package com.vo;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.time.LocalDateTime;
+
+import com.vo.core.ZLog2;
 
 /**
  *
@@ -10,12 +11,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2022-1-11 18:01:37
  *
  */
-//@SpringBootApplication
 public class SbZlog2Application {
 
+	static ZLog2 LOG = ZLog2.getInstance();
+
 	public static void main(final String[] args) {
-		SpringApplication.run(SbZlog2Application.class, args);
-		System.out.println("---------------ok--------------");
+		LOG.info("OK,now={}", LocalDateTime.now());
+		LOG.info("现在时间是[{}]", LocalDateTime.now());
+
+		System.exit(0);
+
 	}
 
 }

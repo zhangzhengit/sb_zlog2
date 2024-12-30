@@ -2,10 +2,6 @@ package com.vo.handler;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  *
  *
@@ -13,9 +9,6 @@ import lombok.NoArgsConstructor;
  * @date 2022年6月30日
  *
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ZDBEntity {
 
 	private Long id;

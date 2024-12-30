@@ -74,11 +74,11 @@ public class ZDBHandler extends ZLogDefaultHandler{
 		this.queue.add(info);
 
 		// FIXME 2022年6月30日 下午9:22:01 zhanghen: 写这里，写入到数据库
-//		先写一个连接池吧
+		//		先写一个连接池吧
 		final Connection connection = this.zc.getConnection();
 
 		final String insert = "insert into log (level,class_name,thread_name,content,create_time)"
-									+ " values (?,?,?,?,?,?);";
+				+ " values (?,?,?,?,?,?);";
 		try {
 			final PreparedStatement ps = connection.prepareStatement(insert);
 			final boolean execute = ps.execute();
@@ -100,6 +100,18 @@ public class ZDBHandler extends ZLogDefaultHandler{
 	@Override
 	public String getPattern() {
 		return this.dbConf.getPassword();
+	}
+
+	public BlockingQueue<String> getQueue() {
+		return this.queue;
+	}
+
+	public ZDBConf getDbConf() {
+		return this.dbConf;
+	}
+
+	public ZC getZc() {
+		return this.zc;
 	}
 
 }

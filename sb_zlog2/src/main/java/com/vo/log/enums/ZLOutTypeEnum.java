@@ -1,8 +1,5 @@
 package com.vo.log.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  *
  *
@@ -10,8 +7,6 @@ import lombok.Getter;
  * @date 2020-12-17 15:16:56
  *
  */
-@Getter
-@AllArgsConstructor
 public enum ZLOutTypeEnum {
 
 	CONSOLE("console"),
@@ -28,5 +23,10 @@ public enum ZLOutTypeEnum {
 
 	;
 
-	private String v;
+	private final String v;
+
+	ZLOutTypeEnum(final String v) {
+		this.v = v;
+	}
+
 }

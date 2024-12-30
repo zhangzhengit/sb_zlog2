@@ -7,8 +7,6 @@ import com.vo.enums.ZLogLevelEnum;
 import com.vo.log.enums.ZLOutTypeEnum;
 
 import cn.hutool.core.util.StrUtil;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 /**
  *
@@ -17,8 +15,6 @@ import lombok.NoArgsConstructor;
  * @date 2022-1-11 18:01:53
  *
  */
-@NoArgsConstructor
-@AllArgsConstructor
 public class ZFileConf {
 
 	private String name;

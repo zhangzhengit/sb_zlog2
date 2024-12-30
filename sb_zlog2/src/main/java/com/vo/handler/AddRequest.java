@@ -15,10 +15,13 @@ import lombok.NoArgsConstructor;
  * @date 2022年12月15日
  *
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class AddRequest {
 
-	private List<byte[]> list;
+	private final List<byte[]> list;
+
+	public AddRequest(final List<byte[]> list) {
+		this.list = list;
+	}
+
+
 }

@@ -50,6 +50,7 @@ public class R {
 	private static PropertiesConfiguration propertiesConfiguration = null;
 
 	static {
+
 		try {
 			propertiesConfiguration = new PropertiesConfiguration(ZLOG_PATH);
 		} catch (final ConfigurationException e) {

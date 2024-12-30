@@ -6,16 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.event.ListSelectionEvent;
-
-import org.springframework.web.context.annotation.ApplicationScope;
-
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  *	自定义连接池
@@ -58,7 +49,7 @@ public class ZC {
 
 	public Connection getConnection() {
 		for (final C2 c2 : this.list) {
-			if (c2.getBusy() == false) {
+			if (!c2.getBusy()) {
 				c2.setBusy(true);
 				return c2.getConnection();
 			}
@@ -66,12 +57,31 @@ public class ZC {
 		throw new IllegalStateException("没有可用的连接了");
 	}
 
-	@Data
-	@AllArgsConstructor
-	@NoArgsConstructor
 	public static class C2 {
 		private Boolean busy;
 		private Connection connection;
+
+		public C2(final Boolean busy, final Connection connection) {
+			this.busy = busy;
+			this.connection = connection;
+		}
+
+		public Boolean getBusy() {
+			return this.busy;
+		}
+
+		public Connection getConnection() {
+			return this.connection;
+		}
+
+		public void setBusy(final Boolean busy) {
+			this.busy = busy;
+		}
+
+		public void setConnection(final Connection connection) {
+			this.connection = connection;
+		}
+
 	}
 
 }

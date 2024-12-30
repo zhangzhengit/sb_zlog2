@@ -7,20 +7,14 @@ import com.vo.enums.ZLogLevelEnum;
 import com.vo.log.enums.ZLOutTypeEnum;
 
 import cn.hutool.core.util.StrUtil;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
- * 
- * 
+ *
+ *
  * @author zhangzhen
  * @date 2022-1-11 18:32:01
- * 
+ *
  */
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class ZConsoleConf {
 
 	public static final Boolean DEFAULT_ENABLE = true;
@@ -60,7 +54,7 @@ public class ZConsoleConf {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(final String name) {
@@ -71,7 +65,7 @@ public class ZConsoleConf {
 	}
 
 	public Boolean getEnable() {
-		return enable;
+		return this.enable;
 	}
 
 	public void setEnable(final Boolean enable) {
@@ -82,7 +76,7 @@ public class ZConsoleConf {
 	}
 
 	public String getPattern() {
-		return pattern;
+		return this.pattern;
 	}
 
 	public void setPattern(final String pattern) {
@@ -93,7 +87,7 @@ public class ZConsoleConf {
 	}
 
 	public List<String> getExcludedClass() {
-		return excludedClass;
+		return this.excludedClass;
 	}
 
 	public void setExcludedClass(final List<String> excludedClass) {
@@ -101,7 +95,7 @@ public class ZConsoleConf {
 	}
 
 	public List<String> getExcludedPackage() {
-		return excludedPackage;
+		return this.excludedPackage;
 	}
 
 	public void setExcludedPackage(final List<String> excludedPackage) {
@@ -109,13 +103,13 @@ public class ZConsoleConf {
 	}
 
 	public String getLevel() {
-		return level;
+		return this.level;
 	}
 
 	@Override
 	public String toString() {
-		return "ZConsoleConf [name=" + name + ", enable=" + enable + ", level=" + level + ", outTypeEnum=" + outTypeEnum
-				+ ", pattern=" + pattern + ", excludedClass=" + excludedClass + ", excludedPackage=" + excludedPackage
+		return "ZConsoleConf [name=" + this.name + ", enable=" + this.enable + ", level=" + this.level + ", outTypeEnum=" + this.outTypeEnum
+				+ ", pattern=" + this.pattern + ", excludedClass=" + this.excludedClass + ", excludedPackage=" + this.excludedPackage
 				+ "]";
 	}
 

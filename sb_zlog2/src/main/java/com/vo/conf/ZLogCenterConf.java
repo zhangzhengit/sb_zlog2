@@ -3,14 +3,10 @@ package com.vo.conf;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vo.enums.ZLogLevelEnum;
 import com.vo.log.enums.ZLOutTypeEnum;
 
 import cn.hutool.core.util.StrUtil;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 /**
  *
@@ -19,9 +15,6 @@ import lombok.NoArgsConstructor;
  * @date 2022-1-11 18:32:01
  *
  */
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class ZLogCenterConf {
 
 	public static final Boolean DEFAULT_ENABLE = true;

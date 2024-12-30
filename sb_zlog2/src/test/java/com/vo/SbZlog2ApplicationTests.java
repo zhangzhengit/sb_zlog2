@@ -2,8 +2,6 @@ package com.vo;
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.Test;
-
 import com.vo.core.ZLog2;
 
 //@SpringBootTest
@@ -11,7 +9,7 @@ class SbZlog2ApplicationTests {
 
 	static final ZLog2 LOG = ZLog2.getInstance();
 
-	@Test
+	//	@Test
 	void test1() {
 		System.out.println(Thread.currentThread().getName() + "\t" + LocalDateTime.now() + "\t"
 				+ "SbZlog2ApplicationTests.test1()");
@@ -20,7 +18,7 @@ class SbZlog2ApplicationTests {
 
 	}
 
-	@Test
+	//	@Test
 	void contextLoads() {
 		System.out.println(Thread.currentThread().getName() + "\t" + LocalDateTime.now() + "\t"
 				+ "SbZlog2ApplicationTests.contextLoads()");
