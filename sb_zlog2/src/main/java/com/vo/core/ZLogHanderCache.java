@@ -2,7 +2,6 @@ package com.vo.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -16,21 +15,25 @@ import com.vo.handler.IZLogHandler;
  * @date 2020-12-21 10:41:53
  *
  */
-public class ZLogHanderCache {
+class ZLogHanderCache {
 
-	private static final ConcurrentMap<String, IZLogHandler> map = new ConcurrentHashMap<>();
+	private static final List<IZLogHandler> LIST = new ArrayList<>(2);
 
-	public static Collection<IZLogHandler> getAllHandler() {
-		final Collection<IZLogHandler> values = map.values();
-		return values;
+	private static int aC = 0;
+
+	static boolean anyoneIsAvailable() {
+		return aC > 0;
 	}
 
-	public static void add(final IZLogHandler zLogHandler) {
-		add(zLogHandler.getClass().getName(), zLogHandler);
+	static List<IZLogHandler> getAllHandler() {
+		return LIST;
 	}
 
-	public static void add(final String handlerClassName, final IZLogHandler zLogHandler) {
-		map.put(handlerClassName, zLogHandler);
+	static void add(final IZLogHandler zLogHandler) {
+		LIST.add(zLogHandler);
+		synchronized (ZLogHanderCache.class) {
+			aC++;
+		}
 	}
 
 }

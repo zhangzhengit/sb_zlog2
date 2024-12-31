@@ -106,7 +106,7 @@ public class ZFileHandler extends ZLogDefaultHandler {
 				final byte[] bytes = message.getBytes(UTF_8);
 				this.length.set(this.length.get() + bytes.length);
 
-				if (this.length.get() >= this.conf.getFileSize() * 1024 * 1024 ) {
+				if (this.length.get() >= (this.conf.getFileSize() * 1024 * 1024) ) {
 					this.closeWriter();
 					this.file = this.newFile(this.file);
 					this.initWriter(this.file);
@@ -142,8 +142,6 @@ public class ZFileHandler extends ZLogDefaultHandler {
 		// ---------------------------------------------------------
 		// ---------------------------------------------------------
 		final Thread thread = new Thread(() -> {
-			System.out.println("ZFileHandler.initWriteThread(...).new Runnable() {...}.run()" + "\t"
-					+ LocalDateTime.now() + "\t" + Thread.currentThread().getName());
 
 			while (true) {
 				try {
@@ -232,11 +230,11 @@ public class ZFileHandler extends ZLogDefaultHandler {
 		final File backupFile = new File(absolutePath + "_backup_" + now);
 		final boolean renameTo = file.renameTo(backupFile);
 
-//		try {
-//			Files.move(file.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//		} catch (final IOException e) {
-//			e.printStackTrace();
-//		}
+		//		try {
+		//			Files.move(file.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		//		} catch (final IOException e) {
+		//			e.printStackTrace();
+		//		}
 
 		final File newFile =new File(absolutePath);
 

@@ -4,24 +4,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.vo.conf.ZConsoleConf;
-import com.vo.conf.ZDBConf;
 import com.vo.conf.ZFileConf;
-import com.vo.conf.ZLogCenterConf;
 import com.vo.core.ZThreadMap.ZGlobalCacheTypeEnum;
 import com.vo.enums.ZLogLevelEnum;
 import com.vo.handler.IZLogHandler;
 import com.vo.handler.ZConsoleHandler;
-import com.vo.handler.ZDBHandler;
 import com.vo.handler.ZFileHandler;
-import com.vo.handler.ZLogCenterHandler;
-import com.vo.log.enums.ZLPatternEnum;
 import com.vo.read.R;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 
 /**
  * 输出日志
@@ -46,25 +41,8 @@ public final class ZLog2 {
 		if (!ZLog2.G.get()) {
 			initConsoleHandler();
 			initFileHandler();
-			initlogCenterHandler();
-
 			ZLog2.G.set(true);
 		}
-	}
-
-	private static void initDBHandler() {
-		final boolean enable = R.readBoolean("zlog.db.enable");
-		if (!enable) {
-			return;
-		}
-
-		final ZDBConf dbConf = new ZDBConf();
-		dbConf.setName(R.readString("zlog.db.name"));
-		dbConf.setEnable(enable);
-		dbConf.setLevel(R.readString("zlog.db.level"));
-		dbConf.setPattern(R.readString("zlog.db.pattern"));
-		final ZDBHandler dbHandler = new ZDBHandler(dbConf);
-		ZLogHanderCache.add(dbHandler);
 	}
 
 	private static void initConsoleHandler() {
@@ -103,92 +81,91 @@ public final class ZLog2 {
 		ZLogHanderCache.add(fileHandler);
 	}
 
-
-	private static void initlogCenterHandler() {
-
-		final boolean enable = R.readBoolean("zlog.logcenter.enable");
-		if (!enable) {
+	public final void trace(final String message, final Object... args) {
+		if (!ZLogHanderCache.anyoneIsAvailable()) {
 			return;
 		}
 
-		final ZLogCenterConf centerConf = new ZLogCenterConf();
-		centerConf.setSecretKey(R.readString("zlog.logcenter.secretKey"));
-		centerConf.setAppId(R.readInteger("zlog.logcenter.appId"));
-		centerConf.setAppName(R.readString("zlog.logcenter.appName"));
-		centerConf.setName(R.readString("zlog.logcenter.name"));
-		centerConf.setEnable(enable);
-		centerConf.setOutTypeEnum(R.readString("zlog.logcenter.outTypeEnum"));
-		centerConf.setLevel(R.readString("zlog.logcenter.level"));
-		centerConf.setPattern(R.readString("zlog.logcenter.pattern"));
-		centerConf.setLogCenterURL(R.readString("zlog.logcenter.logCenterUrl"));
+		ZLog2.init_DATE_TIME();
+		ZLog2.init_XXX(ZLogLevelEnum.TRACE);
 
-		final ZLogCenterHandler logCenterHandler = new ZLogCenterHandler(centerConf);
-		ZLogHanderCache.add(logCenterHandler);
-	}
-
-	public final void trace(final String message, final Object... args) {
-		this.init_DATE_TIME();
-		this.init_XXX(ZLogLevelEnum.TRACE);
-
-		final Collection<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
-		for (final IZLogHandler h : allHandler) {
-			h.trace(message, args);
+		final List<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
+		for (int i = 0; i < allHandler.size(); i++) {
+			allHandler.get(i).trace(message, args);
 		}
 	}
 
 	public final void debug(final String message, final Object... args) {
-		this.init_DATE_TIME();
-		this.init_XXX(ZLogLevelEnum.DEBUG);
+		if (!ZLogHanderCache.anyoneIsAvailable()) {
+			return;
+		}
 
-		final Collection<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
-		for (final IZLogHandler h : allHandler) {
-			h.debug(message, args);
+		ZLog2.init_DATE_TIME();
+		ZLog2.init_XXX(ZLogLevelEnum.DEBUG);
+
+		final List<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
+		for (int i = 0; i < allHandler.size(); i++) {
+			allHandler.get(i).debug(message, args);
 		}
 	}
 
 	public final void info(final String message, final Object... args) {
-		this.init_DATE_TIME();
-		this.init_XXX(ZLogLevelEnum.INFO);
+		if (!ZLogHanderCache.anyoneIsAvailable()) {
+			return;
+		}
 
-		final Collection<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
-		for (final IZLogHandler h : allHandler) {
-			h.info(message, args);
+		ZLog2.init_DATE_TIME();
+		ZLog2.init_XXX(ZLogLevelEnum.INFO);
+
+		final List<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
+		for (int i = 0; i < allHandler.size(); i++) {
+			allHandler.get(i).info(message, args);
 		}
 	}
 
 	public final void warn(final String message, final Object... args) {
-		this.init_DATE_TIME();
-		this.init_XXX(ZLogLevelEnum.WARN);
+		if (!ZLogHanderCache.anyoneIsAvailable()) {
+			return;
+		}
 
-		final Collection<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
-		for (final IZLogHandler h : allHandler) {
-			h.warn(message, args);
+		ZLog2.init_DATE_TIME();
+		ZLog2.init_XXX(ZLogLevelEnum.WARN);
+
+		final List<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
+		for (int i = 0; i < allHandler.size(); i++) {
+			allHandler.get(i).warn(message, args);
 		}
 	}
 
 	public final void error(final String message, final Object... args) {
-		this.init_DATE_TIME();
-		this.init_XXX(ZLogLevelEnum.ERROR);
+		if (!ZLogHanderCache.anyoneIsAvailable()) {
+			return;
+		}
 
+		ZLog2.init_DATE_TIME();
+		ZLog2.init_XXX(ZLogLevelEnum.ERROR);
 
-		final Collection<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
-		for (final IZLogHandler h : allHandler) {
-			h.error(message, args);
+		final List<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
+		for (int i = 0; i < allHandler.size(); i++) {
+			allHandler.get(i).error(message, args);
 		}
 	}
 
 	public final void fatal(final String message, final Object... args) {
-		this.init_DATE_TIME();
-		this.init_XXX(ZLogLevelEnum.FATAL);
-
-		final Collection<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
-		for (final IZLogHandler h : allHandler) {
-			h.fatal(message, args);
+		if (!ZLogHanderCache.anyoneIsAvailable()) {
+			return;
 		}
 
+		ZLog2.init_DATE_TIME();
+		ZLog2.init_XXX(ZLogLevelEnum.FATAL);
+
+		final List<IZLogHandler> allHandler = ZLogHanderCache.getAllHandler();
+		for (int i = 0; i < allHandler.size(); i++) {
+			allHandler.get(i).fatal(message, args);
+		}
 	}
 
-	private boolean anyZLogEnable() {
+	private static boolean anyZLogEnable() {
 		final Collection<IZLogHandler> ah = ZLogHanderCache.getAllHandler();
 		if (CollUtil.isEmpty(ah)) {
 			return false;
@@ -204,7 +181,7 @@ public final class ZLog2 {
 
 	}
 
-	private void init_XXX(final ZLogLevelEnum levelEnum) {
+	private static void init_XXX(final ZLogLevelEnum levelEnum) {
 		ZGlobalCache.set(ZGlobalCacheTypeEnum.LOG_XXX_LEVEL, levelEnum.name());
 
 		final StackTraceElement ste = getSTE_FOR_log_xxx();
@@ -221,30 +198,11 @@ public final class ZLog2 {
 		return stA[d];
 	}
 
-	private void init_DATE_TIME() {
-		if (this.anyZLogEnable()) {
+	private static void init_DATE_TIME() {
+		if (ZLog2.anyZLogEnable()) {
 			ZGlobalCache.set(ZGlobalCacheTypeEnum.TIME, LocalTime.now());
 			ZGlobalCache.set(ZGlobalCacheTypeEnum.DATE, LocalDate.now());
 			ZGlobalCache.set(ZGlobalCacheTypeEnum.DATE_TIME, LocalDateTime.now());
 		}
-	}
-
-
-	/**
-	 * 	启动时校验pattern是否合理（必须为合理值）
-	 */
-	private static void checkPattern(final String pattern) {
-		if(StrUtil.isEmpty(pattern)) {
-			throw new IllegalArgumentException("pattern 不能为空");
-		}
-
-		final ZLPatternEnum[] vs = ZLPatternEnum.values();
-		for (final ZLPatternEnum e : vs) {
-			final String p = e.getPattern();
-			// FIXME 2024年5月31日 下午1:26:38 zhangzhen : 写这里
-		}
-
-
-
 	}
 }

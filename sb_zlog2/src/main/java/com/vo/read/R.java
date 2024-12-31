@@ -1,9 +1,13 @@
 package com.vo.read;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-
-import cn.hutool.core.util.StrUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 
 /**
  * 读取zlog的配置文件
@@ -14,28 +18,29 @@ import cn.hutool.core.util.StrUtil;
  */
 public class R {
 
+	private static final Charset UTF8 = StandardCharsets.UTF_8;
 	public static final String ZLOG_PATH = "src/main/resources/zlog.properties";
 	public static final String ZLOG_PATH_1 = "src/main/resources/config/zlog.properties";
 	public static final String ZLOG_PATH_2 = "config/zlog.properties";
 	public static final String ZLOG_PATH_3 = "zlog.properties";
 
 	public static boolean readBoolean(final String key) {
-		final boolean v = propertiesConfiguration.getBoolean(key);
-		return v;
+		final String property = properties.getProperty(key);
+		return Boolean.parseBoolean(property);
 	}
 
 	public static Integer readInteger(final String key) {
-		final String v = propertiesConfiguration.getString(key);
-		if (StrUtil.isEmpty(v)) {
+		final String v = properties.getProperty(key);
+		if (v == null) {
 			return null;
 		}
-
-		return Integer.parseInt(v);
+		final int i = Integer.parseInt(v);
+		return i;
 	}
 
 	public static Long readLong(final String key) {
-		final String v = propertiesConfiguration.getString(key);
-		if (StrUtil.isEmpty(v)) {
+		final String v = properties.getProperty(key);
+		if (v == null) {
 			return null;
 		}
 
@@ -43,30 +48,76 @@ public class R {
 	}
 
 	public static String readString(final String key) {
-		final String v = propertiesConfiguration.getString(key);
-		return v;
+		return properties.getProperty(key);
 	}
 
-	private static PropertiesConfiguration propertiesConfiguration = null;
+	private static Properties properties;
 
 	static {
 
-		try {
-			propertiesConfiguration = new PropertiesConfiguration(ZLOG_PATH);
-		} catch (final ConfigurationException e) {
-			try {
-				propertiesConfiguration = new PropertiesConfiguration(ZLOG_PATH_1);
-			} catch (final ConfigurationException e1) {
-				try {
-					propertiesConfiguration = new PropertiesConfiguration(ZLOG_PATH_2);
-				} catch (final ConfigurationException e2) {
-					try {
-						propertiesConfiguration = new PropertiesConfiguration(ZLOG_PATH_3);
-					} catch (final ConfigurationException e3) {
-						e3.printStackTrace();
-					}
+		// 2 properties
+		Properties p1 = loadDirConfig(File.separator + ZLOG_PATH_2);
+		if (p1 == null) {
+			p1 = loadDirConfig(File.separator + ZLOG_PATH_3);
+			if (p1 == null) {
+				p1 = loadPResources("/config/zlog.properties");
+				if (p1 == null) {
+					p1 = loadPResources("/zlog.properties");
 				}
 			}
 		}
+
+		if (p1 == null) {
+			System.out.println("ERROR:zlog2启动失败,zlog.properties配置文件不存在,请编写此配置文件");
+			System.exit(0);
+		}
+
+		properties = p1;
+
+	}
+
+	private static Properties loadPResources(final String path) {
+		final InputStream inputStream = R.class.getResourceAsStream(path);
+		if (inputStream == null) {
+			return null;
+		}
+
+		final Properties p2 = new Properties();
+		InputStreamReader reader = null;
+		try {
+			reader = new InputStreamReader(inputStream, UTF8);
+			p2.load(reader);
+		} catch (final IOException e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				inputStream.close();
+				if (reader != null) {
+					reader.close();
+				}
+			} catch (final IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return p2;
+	}
+
+	private static Properties loadDirConfig(final String path) {
+		final String userDir = getUseDir();
+		final File file1 = new File(userDir + path);
+		final Properties properties = new Properties();
+		try (FileInputStream in = new FileInputStream(file1);
+				final InputStreamReader inputStreamReader = new InputStreamReader(in, UTF8);) {
+			properties.load(inputStreamReader);
+		} catch (final IOException e) {
+			return null;
+		}
+
+		return properties;
+	}
+
+	private static String getUseDir() {
+		return System.getProperty("user.dir");
 	}
 }

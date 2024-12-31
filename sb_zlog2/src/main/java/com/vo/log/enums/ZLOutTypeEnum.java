@@ -13,14 +13,6 @@ public enum ZLOutTypeEnum {
 
 	FILE("file"),
 
-	DB("db"),
-
-	LOG_CENTER("log_center"),
-
-	ZMQ("zmq"),
-
-	HTTP("http"),
-
 	;
 
 	private final String v;
