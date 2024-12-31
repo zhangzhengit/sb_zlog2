@@ -18,7 +18,7 @@ public class SbZlog2Application {
 	public static void main(final String[] args) {
 		//		final long t1 = System.currentTimeMillis();
 		//		final int n = 5;
-		//		//				int n = 10000 * 50;
+		// // int n = 10000 * 50;
 		//		final int n2 = n;
 		//		LOG.trace("OK,now={}", LocalDateTime.now());
 		//		LOG.debug("OK,now={}", LocalDateTime.now());
@@ -26,14 +26,13 @@ public class SbZlog2Application {
 		//		LOG.warn("OK,now={}", LocalDateTime.now());
 		//		LOG.error("OK,now={}", LocalDateTime.now());
 		//		LOG.fatal("OK,now={}", LocalDateTime.now());
-		//		//		while (n-- > 0) {
-		//		//			LOG.info("现在时间是[{}]", LocalDateTime.now());
-		//		//		}
+		// // while (n-- > 0) {
+		// // LOG.info("现在时间是[{}]", LocalDateTime.now());
+		// // }
 		//
 		//		final long t2 = System.currentTimeMillis();
 		//		System.out.println("n = " + n2 + "\t" + "ms = " + (t2 - t1));
 		//		System.exit(0);
-
 	}
 
 }

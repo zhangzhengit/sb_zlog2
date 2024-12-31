@@ -3,10 +3,9 @@ package com.vo.conf;
 import java.util.List;
 import java.util.Objects;
 
+import com.vo.common.STU;
 import com.vo.enums.ZLogLevelEnum;
 import com.vo.log.enums.ZLOutTypeEnum;
-
-import cn.hutool.core.util.StrUtil;
 
 /**
  *
@@ -38,7 +37,7 @@ public class ZConsoleConf {
 	}
 
 	public void setOutTypeEnum(final String outTypeEnum) {
-		if (StrUtil.isEmpty(outTypeEnum)) {
+		if (STU.isEmpty(outTypeEnum)) {
 			throw new IllegalArgumentException("zlog.console.outTypeEnum 不能为空");
 		}
 		ZLOutTypeEnum.valueOf(outTypeEnum);
@@ -46,7 +45,7 @@ public class ZConsoleConf {
 	}
 
 	public void setLevel(final String level) {
-		if (StrUtil.isEmpty(level)) {
+		if (STU.isEmpty(level)) {
 			throw new IllegalArgumentException("zlog.console.level 不能为空");
 		}
 		ZLogLevelEnum.valueByNameLowerCase(level);
@@ -58,7 +57,7 @@ public class ZConsoleConf {
 	}
 
 	public void setName(final String name) {
-		if (StrUtil.isEmpty(name)) {
+		if (STU.isEmpty(name)) {
 			throw new IllegalArgumentException("zlog.console.name 不能为空");
 		}
 		this.name = name;
@@ -80,7 +79,7 @@ public class ZConsoleConf {
 	}
 
 	public void setPattern(final String pattern) {
-		if (StrUtil.isEmpty(pattern)) {
+		if (STU.isEmpty(pattern)) {
 			throw new IllegalArgumentException("zlog.console.pattern 不能为空");
 		}
 		this.pattern = pattern;

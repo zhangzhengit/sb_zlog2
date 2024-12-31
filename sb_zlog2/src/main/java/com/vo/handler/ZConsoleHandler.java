@@ -1,19 +1,18 @@
 package com.vo.handler;
 
+import com.vo.common.STU;
 import com.vo.conf.ZConsoleConf;
 import com.vo.log.enums.ZLOutTypeEnum;
 
-import cn.hutool.core.util.StrUtil;
-
 /**
- * 
- * 
+ *
+ *
  * @author zhangzhen
  * @date 2022-1-11 18:42:40
- * 
+ *
  */
 public final class ZConsoleHandler extends ZLogDefaultHandler {
-	
+
 	private final ZConsoleConf conf;
 
 	public ZConsoleHandler(final ZConsoleConf conf) {
@@ -74,11 +73,11 @@ public final class ZConsoleHandler extends ZLogDefaultHandler {
 
 	/**
 	 * 此handler私有处理方法，输出到控制台
-	 * 
+	 *
 	 * @param message
 	 */
 	private static void println(final String message) {
-		if (StrUtil.isEmpty(message)) {
+		if (STU.isEmpty(message)) {
 			return;
 		}
 
@@ -95,6 +94,6 @@ public final class ZConsoleHandler extends ZLogDefaultHandler {
 	public String getPattern() {
 		return this.conf.getPattern();
 	}
-	
-	
+
+
 }

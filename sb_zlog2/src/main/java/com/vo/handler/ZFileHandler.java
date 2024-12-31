@@ -5,18 +5,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.vo.common.STU;
 import com.vo.conf.ZFileConf;
 import com.vo.log.enums.ZLOutTypeEnum;
-
-import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
 
 /**
  *
@@ -146,7 +143,7 @@ public class ZFileHandler extends ZLogDefaultHandler {
 			while (true) {
 				try {
 					final String message = ZFileHandler.this.queue.take();
-					if (StrUtil.isNotEmpty(message)) {
+					if (STU.isNotEmpty(message)) {
 						ZFileHandler.this.write0(message);
 					}
 				} catch (final InterruptedException e) {
@@ -224,9 +221,10 @@ public class ZFileHandler extends ZLogDefaultHandler {
 	}
 
 
-	private  File newFile(final File file) {
+	private File newFile(final File file) {
 		final String absolutePath = file.getAbsolutePath();
-		final String now = DateUtil.format(new Date(), DatePattern.PURE_DATETIME_PATTERN);
+		final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		final String now = simpleDateFormat.format(new Date());
 		final File backupFile = new File(absolutePath + "_backup_" + now);
 		final boolean renameTo = file.renameTo(backupFile);
 

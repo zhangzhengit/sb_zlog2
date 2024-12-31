@@ -1,19 +1,18 @@
 package com.vo.handler;
 
+import com.vo.common.STU;
 import com.vo.enums.ZLogLevelEnum;
 import com.vo.log.enums.ZLOutTypeEnum;
 import com.vo.log.enums.ZLPatternEnum;
-
-import cn.hutool.core.util.StrUtil;
 
 /**
  *
  * 默认的Handler，只根据pattern和message和args 解析出日志内容，只返回一个String不做其它操作。
  * 需要往其它组件输入，extends此类 ，在xxx方法中 super().xxx，处理返回的结果。
- * 
+ *
  * @author zhangzhen
  * @date 2020-12-17
- * 
+ *
  */
 public abstract class ZLogDefaultHandler implements IZLogHandler {
 
@@ -27,12 +26,12 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 
 	@Override
 	public String trace(final String message, final Object... args) {
-		
+
 		if (this.getLevelO() > TRACE_ORDINAL) {
 			return EMPTY_STRING;
 		}
-		
-		return parseMessage(message,  getPattern(), args);
+
+		return this.parseMessage(message,  this.getPattern(), args);
 	}
 
 	@Override
@@ -40,8 +39,8 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 		if (this.getLevelO() > DEBUG_ORDINAL) {
 			return EMPTY_STRING;
 		}
-		
-		return parseMessage(message,  getPattern(), args);
+
+		return this.parseMessage(message,  this.getPattern(), args);
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 		if (this.getLevelO() > INFO_ORDINAL) {
 			return EMPTY_STRING;
 		}
-		return parseMessage(message,  getPattern(), args);
+		return this.parseMessage(message,  this.getPattern(), args);
 	}
 
 	@Override
@@ -57,8 +56,8 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 		if (this.getLevelO() > WARN_ORDINAL) {
 			return EMPTY_STRING;
 		}
-		
-		return parseMessage(message, getPattern(), args);
+
+		return this.parseMessage(message, this.getPattern(), args);
 	}
 
 	@Override
@@ -66,7 +65,7 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 		if (this.getLevelO() > ERROR_ORDINAL) {
 			return EMPTY_STRING;
 		}
-		return parseMessage(message,  getPattern(), args);
+		return this.parseMessage(message,  this.getPattern(), args);
 	}
 
 	@Override
@@ -74,7 +73,7 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 		if (this.getLevelO() > FATAL_ORDINAL) {
 			return EMPTY_STRING;
 		}
-		return parseMessage(message,  getPattern(), args);
+		return this.parseMessage(message,  this.getPattern(), args);
 	}
 
 	@Override
@@ -84,29 +83,25 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 
 	/**
 	 * 根据pattern和message 和args解析出完整的日志内容
-	 * 
+	 *
 	 * 如： pattern 配置为: %DATE_TIME [%LEVEL]
 	 * [%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER] : [%MESSAGE] 调用log.xxx方法:
 	 * log.warn("WARN,name={},id={}", "zhangsan", 200); 返回结果为:
 	 * 2011-11-1T11:11:11.111 [WARN]
 	 * [main]-[com.vo.log.SbZlog20201217ApplicationTests::test_INFO2@75] :
 	 * [WARN,name=zhangsan,id=200]
-	 * 
+	 *
 	 * @param message
-	 * @param pattern 
+	 * @param pattern
 	 * @param args
 	 * @return
 	 */
 	protected String parseMessage(final String message, final String pattern, final Object... args) {
-		if (StrUtil.isEmpty(pattern)) {
+		if (STU.isEmpty(pattern) || !this.isEnable()) {
 			return EMPTY_STRING;
 		}
 
-		if (!this.isEnable()) {
-			return EMPTY_STRING;
-		}
-
-		final StringBuilder mb = parseARGS(message, args);
+		final StringBuilder mb = this.parseARGS(message, args);
 		final StringBuilder m = ZLPatternEnum.parse(pattern, mb.toString());
 
 		return m.toString();
@@ -118,17 +113,17 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 	}
 
 	private int loc = -20;
-	
+
 	private int getLevelO() {
 		if (this.loc < 0) {
 			final String level = this.getLevel();
 			final ZLogLevelEnum ke = ZLogLevelEnum.valueByNameLowerCase(level);
 			this.loc = ke.ordinal();
 		}
-		
+
 		return this.loc;
 	}
-	
+
 	public abstract String getLevel();
 
 	public abstract String getPattern();

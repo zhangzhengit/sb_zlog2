@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.vo.common.CU;
 import com.vo.conf.ZConsoleConf;
 import com.vo.conf.ZFileConf;
 import com.vo.core.ZThreadMap.ZGlobalCacheTypeEnum;
@@ -15,8 +16,6 @@ import com.vo.handler.IZLogHandler;
 import com.vo.handler.ZConsoleHandler;
 import com.vo.handler.ZFileHandler;
 import com.vo.read.R;
-
-import cn.hutool.core.collection.CollUtil;
 
 /**
  * 输出日志
@@ -167,7 +166,7 @@ public final class ZLog2 {
 
 	private static boolean anyZLogEnable() {
 		final Collection<IZLogHandler> ah = ZLogHanderCache.getAllHandler();
-		if (CollUtil.isEmpty(ah)) {
+		if (CU.isEmpty(ah)) {
 			return false;
 		}
 

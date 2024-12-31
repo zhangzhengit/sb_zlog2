@@ -3,10 +3,9 @@ package com.vo.conf;
 import java.util.List;
 import java.util.Objects;
 
+import com.vo.common.STU;
 import com.vo.enums.ZLogLevelEnum;
 import com.vo.log.enums.ZLOutTypeEnum;
-
-import cn.hutool.core.util.StrUtil;
 
 /**
  *
@@ -45,7 +44,7 @@ public class ZFileConf {
 	}
 
 	public void setOutTypeEnum(final String outTypeEnum) {
-		if (StrUtil.isEmpty(outTypeEnum)) {
+		if (STU.isEmpty(outTypeEnum)) {
 			throw new IllegalArgumentException("zlog.file.outTypeEnum 不能为空");
 		}
 		ZLOutTypeEnum.valueOf(outTypeEnum);
@@ -53,7 +52,7 @@ public class ZFileConf {
 	}
 
 	public void setLevel(final String level) {
-		if (StrUtil.isEmpty(level)) {
+		if (STU.isEmpty(level)) {
 			throw new IllegalArgumentException("zlog.file.level 不能为空");
 		}
 		ZLogLevelEnum.valueOf(level);
@@ -65,7 +64,7 @@ public class ZFileConf {
 	}
 
 	public void setName(final String name) {
-		if (StrUtil.isEmpty(name)) {
+		if (STU.isEmpty(name)) {
 			throw new IllegalArgumentException("zlog.file.name 不能为空");
 		}
 		this.name = name;

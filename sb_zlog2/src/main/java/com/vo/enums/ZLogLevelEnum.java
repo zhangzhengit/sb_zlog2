@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import cn.hutool.core.util.StrUtil;
+import com.vo.common.STU;
 
 /**
  *
@@ -32,7 +32,7 @@ public enum ZLogLevelEnum {
 	private final static Map<String, ZLogLevelEnum> map = new HashMap<>();
 
 	public static ZLogLevelEnum valueByNameLowerCase(final String name) {
-		if (StrUtil.isEmpty(name)) {
+		if (STU.isEmpty(name)) {
 			throw new IllegalArgumentException("name 不能为空");
 		}
 

@@ -7,14 +7,14 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import cn.hutool.core.collection.CollUtil;
+import com.vo.common.CU;
 
 /**
  * 只对当前线程有效的 K-V 操作类
- * 
+ *
  * @author zhangzhen
  * @date 2020-12-18
- * 
+ *
  */
 public class ZThreadMap<KT, VT> {
 
@@ -22,21 +22,21 @@ public class ZThreadMap<KT, VT> {
 
 	public void set(final KT key, final VT v) {
 		final Thread thread = Thread.currentThread();
-		final Map<KT, VT> vm = map.get(thread);
-		if (CollUtil.isNotEmpty(vm)) {
+		final Map<KT, VT> vm = this.map.get(thread);
+		if (CU.isNotEmpty(vm)) {
 			vm.put(key, v);
 			return;
 		}
 
 		final Map<KT, VT> nvm = new HashMap<>();
 		nvm.put(key, v);
-		map.put(thread, nvm);
+		this.map.put(thread, nvm);
 
 	}
 
 	public VT get(final KT key) {
-		final Map<KT, VT> vm = currentThread_VM();
-		if (CollUtil.isEmpty(vm)) {
+		final Map<KT, VT> vm = this.currentThread_VM();
+		if (CU.isEmpty(vm)) {
 			return null;
 		}
 		final VT vt = vm.get(key);
@@ -44,24 +44,24 @@ public class ZThreadMap<KT, VT> {
 	}
 
 	public void remove(final KT key) {
-		final Map<KT, VT> vm = currentThread_VM();
-		if (CollUtil.isEmpty(vm)) {
+		final Map<KT, VT> vm = this.currentThread_VM();
+		if (CU.isEmpty(vm)) {
 			return;
 		}
 		vm.remove(key);
 	}
 
 	public void clear() {
-		final Map<KT, VT> vm = currentThread_VM();
-		if (CollUtil.isNotEmpty(vm)) {
+		final Map<KT, VT> vm = this.currentThread_VM();
+		if (CU.isNotEmpty(vm)) {
 			vm.clear();
 		}
 
 	}
 
 	public Set<Map.Entry<KT, VT>> entrySet() {
-		final Map<KT, VT> vm = currentThread_VM();
-		if (CollUtil.isEmpty(vm)) {
+		final Map<KT, VT> vm = this.currentThread_VM();
+		if (CU.isEmpty(vm)) {
 			return Collections.emptySet();
 		}
 
@@ -69,41 +69,41 @@ public class ZThreadMap<KT, VT> {
 	}
 
 	public int size() {
-		final Map<KT, VT> vm = currentThread_VM();
-		return CollUtil.isEmpty(vm) ? 0 : vm.size();
+		final Map<KT, VT> vm = this.currentThread_VM();
+		return CU.isEmpty(vm) ? 0 : vm.size();
 	}
 
 	private Map<KT, VT> currentThread_VM() {
 		final Thread currentThread = Thread.currentThread();
-		final Map<KT, VT> vm = map.get(currentThread);
+		final Map<KT, VT> vm = this.map.get(currentThread);
 		return vm;
 	}
 
 	/**
 	 *	操作类型定义
-	 * 	
+	 *
 	 * @author zhangzhen
 	 * @date 2020-12-18
-	 * 
+	 *
 	 */
 	public enum ZGlobalCacheTypeEnum{
-		
-		TIME, 
-		
-		DATE, 
-		
+
+		TIME,
+
+		DATE,
+
 		DATE_TIME,
 
 		LOG_XXX_CLASS_NAME,
-		
+
 		LOG_XXX_FILE_NAME,
-		
+
 		LOG_XXX_METHOD_NAME,
-		
+
 		LOG_XXX_LINE_NUMBER,
-		
+
 		LOG_XXX_LEVEL,
-		
+
 		;
 	}
 
