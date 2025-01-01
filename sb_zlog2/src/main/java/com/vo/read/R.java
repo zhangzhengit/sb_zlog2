@@ -19,10 +19,8 @@ import java.util.Properties;
 public class R {
 
 	private static final Charset UTF8 = StandardCharsets.UTF_8;
-	public static final String ZLOG_PATH = "src/main/resources/zlog.properties";
-	public static final String ZLOG_PATH_1 = "src/main/resources/config/zlog.properties";
-	public static final String ZLOG_PATH_2 = "config/zlog.properties";
-	public static final String ZLOG_PATH_3 = "zlog.properties";
+	public static final String CONFG_ZLOG2 = "config/zlog.properties";
+	public static final String ZLOG2 = "zlog.properties";
 
 	public static boolean readBoolean(final String key) {
 		final String property = properties.getProperty(key);
@@ -55,14 +53,13 @@ public class R {
 
 	static {
 
-		// 2 properties
-		Properties p1 = loadDirConfig(File.separator + ZLOG_PATH_2);
+		Properties p1 = loadDirConfig(File.separator + CONFG_ZLOG2);
 		if (p1 == null) {
-			p1 = loadDirConfig(File.separator + ZLOG_PATH_3);
+			p1 = loadDirConfig(File.separator + ZLOG2);
 			if (p1 == null) {
-				p1 = loadPResources("/config/zlog.properties");
+				p1 = loadPResources("/" + CONFG_ZLOG2);
 				if (p1 == null) {
-					p1 = loadPResources("/zlog.properties");
+					p1 = loadPResources("/" + ZLOG2);
 				}
 			}
 		}
