@@ -228,6 +228,9 @@ public class ZFileHandler extends ZLogDefaultHandler {
 		final String now = simpleDateFormat.format(new Date());
 		final File backupFile = new File(absolutePath + "_backup_" + now);
 		final boolean renameTo = file.renameTo(backupFile);
+		if (renameTo) {
+			Compression.compression(backupFile);
+		}
 
 		//		try {
 		//			Files.move(file.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -235,11 +238,16 @@ public class ZFileHandler extends ZLogDefaultHandler {
 		//			e.printStackTrace();
 		//		}
 
-		final File newFile =new File(absolutePath);
-
+		final File newFile = new File(absolutePath);
+		if (!newFile.exists()) {
+			try {
+				newFile.createNewFile();
+			} catch (final IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		this.length.set(0L);
-
 
 		return newFile;
 	}
