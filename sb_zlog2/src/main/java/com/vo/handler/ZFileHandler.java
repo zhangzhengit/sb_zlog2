@@ -100,14 +100,15 @@ public class ZFileHandler extends ZLogDefaultHandler {
 	private synchronized void write0(final String message) {
 		if (this.bufferedWriter != null) {
 			try {
-				final byte[] bytes = message.getBytes(UTF_8);
-				this.length.set(this.length.get() + bytes.length);
 
-				if (this.length.get() >= (this.conf.getFileSize() * 1024 * 1024) ) {
+				if (this.length.get() >= (this.conf.getFileSize() * 1024 * 1024)) {
 					this.closeWriter();
 					this.file = this.newFile(this.file);
 					this.initWriter(this.file);
 				}
+
+				final byte[] bytes = message.getBytes(UTF_8);
+				this.length.set(this.length.get() + bytes.length);
 
 				this.bufferedWriter.write(message);
 				this.bufferedWriter.newLine();
@@ -205,7 +206,7 @@ public class ZFileHandler extends ZLogDefaultHandler {
 		} else {
 			final long b = file.length();
 			final Long fileSize = conf.getFileSize();
-			if (b >= fileSize.longValue()) {
+			if (b >= (fileSize.longValue() * 1024  * 1024)) {
 				final File newFile = this.newFile(file);
 				try {
 					newFile.createNewFile();
