@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class Compression {
 
 	private static final String THREAD_NAME = "zlog2-compression-Thread";
-	private static final String ZIP = ".zip";
+	private static final String GZ = ".gz";
 	private static final int BUFFER_SIZE = 1024 * 100;
 
 	/**
@@ -41,7 +41,7 @@ public class Compression {
 
 	private static void action(final File backFile) {
 
-		final File zipFile = new File(backFile.getAbsolutePath() + ZIP);
+		final File zipFile = new File(backFile.getAbsolutePath() + GZ);
 		try {
 			final BufferedInputStream bufferedInputStream = new BufferedInputStream(
 					new FileInputStream(backFile));
