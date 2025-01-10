@@ -164,22 +164,6 @@ public final class ZLog2 {
 		}
 	}
 
-	private static boolean anyZLogEnable() {
-		final Collection<IZLogHandler> ah = ZLogHanderCache.getAllHandler();
-		if (CU.isEmpty(ah)) {
-			return false;
-		}
-
-		for (final IZLogHandler a : ah) {
-			if (a.isEnable()) {
-				return true;
-			}
-		}
-
-		return false;
-
-	}
-
 	private static void init_XXX(final ZLogLevelEnum levelEnum) {
 		ZGlobalCache.set(ZGlobalCacheTypeEnum.LOG_XXX_LEVEL, levelEnum.name());
 
@@ -198,10 +182,9 @@ public final class ZLog2 {
 	}
 
 	private static void init_DATE_TIME() {
-		if (ZLog2.anyZLogEnable()) {
-			ZGlobalCache.set(ZGlobalCacheTypeEnum.TIME, LocalTime.now());
-			ZGlobalCache.set(ZGlobalCacheTypeEnum.DATE, LocalDate.now());
-			ZGlobalCache.set(ZGlobalCacheTypeEnum.DATE_TIME, LocalDateTime.now());
-		}
+		ZGlobalCache.set(ZGlobalCacheTypeEnum.TIME, LocalTime.now());
+		ZGlobalCache.set(ZGlobalCacheTypeEnum.DATE, LocalDate.now());
+		ZGlobalCache.set(ZGlobalCacheTypeEnum.DATE_TIME, LocalDateTime.now());
 	}
+
 }
