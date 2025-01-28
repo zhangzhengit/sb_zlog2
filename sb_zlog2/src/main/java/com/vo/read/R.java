@@ -68,7 +68,7 @@ public class R {
 			// 2025年1月29日 上午12:03:34 zhangzhen : 不要提示了，而是使用内置的一个默认配置
 			// System.out.println("ERROR:zlog2启动失败,zlog.properties配置文件不存在,请编写此配置文件");
 			// System.exit(0);
-			
+
 			final Properties pd = new Properties();
 			pd.setProperty("zlog.console.name", "CONSOLE");
 			pd.setProperty("zlog.console.enable", "true");
@@ -81,10 +81,7 @@ public class R {
 			pd.setProperty("zlog.file.level", "TRACE");
 			pd.setProperty("zlog.file.pattern",
 					"[%DATE_TIME]-[%LEVEL]-[%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER] : [%MESSAGE]");
-			System.out.println("appname = " + getAppName());
-			final String currentDir = getUserDir();
-			System.out.println("currentDir = " + currentDir);
-			pd.setProperty("zlog.file.filePath", currentDir);
+			pd.setProperty("zlog.file.filePath", gFilePath());
 			pd.setProperty("zlog.file.fileName", getAppName() + ".log");
 			pd.setProperty("zlog.file.fileSize", "100");
 
@@ -96,7 +93,7 @@ public class R {
 
 	}
 
-	private static String getUserDir() {
+	private static String gFilePath() {
 		final String userDir = System.getProperty("user.dir");
 
 		final String logPath = userDir + File.separator + "log";
