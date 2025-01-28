@@ -65,12 +65,53 @@ public class R {
 		}
 
 		if (p1 == null) {
-			System.out.println("ERROR:zlog2启动失败,zlog.properties配置文件不存在,请编写此配置文件");
-			System.exit(0);
+			// 2025年1月29日 上午12:03:34 zhangzhen : 不要提示了，而是使用内置的一个默认配置
+			// System.out.println("ERROR:zlog2启动失败,zlog.properties配置文件不存在,请编写此配置文件");
+			// System.exit(0);
+			
+			final Properties pd = new Properties();
+			pd.setProperty("zlog.console.name", "CONSOLE");
+			pd.setProperty("zlog.console.enable", "true");
+			pd.setProperty("zlog.console.level", "TRACE");
+			pd.setProperty("zlog.console.pattern",
+					"[%DATE_TIME]-[%LEVEL]-[%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER] : [%MESSAGE]");
+
+			pd.setProperty("zlog.file.name", "FILE");
+			pd.setProperty("zlog.file.enable", "true");
+			pd.setProperty("zlog.file.level", "TRACE");
+			pd.setProperty("zlog.file.pattern",
+					"[%DATE_TIME]-[%LEVEL]-[%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER] : [%MESSAGE]");
+			System.out.println("appname = " + getAppName());
+			final String currentDir = getUserDir();
+			System.out.println("currentDir = " + currentDir);
+			pd.setProperty("zlog.file.filePath", currentDir);
+			pd.setProperty("zlog.file.fileName", getAppName() + ".log");
+			pd.setProperty("zlog.file.fileSize", "100");
+
+			properties = pd;
+
+		} else {
+			properties = p1;
 		}
 
-		properties = p1;
+	}
 
+	private static String getUserDir() {
+		final String userDir = System.getProperty("user.dir");
+
+		final String logPath = userDir + File.separator + "log";
+		final File dir = new File(logPath);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+
+		return dir.getAbsolutePath();
+	}
+
+	private static String getAppName() {
+		final String userDir = System.getProperty("user.dir");
+		final String projectName = userDir.substring(userDir.lastIndexOf(File.separator) + 1);
+		return projectName;
 	}
 
 	private static Properties loadPResources(final String path) {

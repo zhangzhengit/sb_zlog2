@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import com.vo.common.STU;
 import com.vo.enums.ZLogLevelEnum;
-import com.vo.log.enums.ZLOutTypeEnum;
 
 /**
  *
@@ -22,8 +21,6 @@ public class ZFileConf {
 
 	private String level;
 
-	private String outTypeEnum;
-
 	private String pattern;
 
 	private String filePath;
@@ -38,18 +35,6 @@ public class ZFileConf {
 	private List<String> excludedClass;
 
 	private List<String> excludedPackage;
-
-	public String getOutTypeEnum() {
-		return this.outTypeEnum;
-	}
-
-	public void setOutTypeEnum(final String outTypeEnum) {
-		if (STU.isEmpty(outTypeEnum)) {
-			throw new IllegalArgumentException("zlog.file.outTypeEnum 不能为空");
-		}
-		ZLOutTypeEnum.valueOf(outTypeEnum);
-		this.outTypeEnum = outTypeEnum;
-	}
 
 	public void setLevel(final String level) {
 		if (STU.isEmpty(level)) {

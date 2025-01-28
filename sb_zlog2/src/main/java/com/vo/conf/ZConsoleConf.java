@@ -24,25 +24,11 @@ public class ZConsoleConf {
 
 	private String level;
 
-	private String outTypeEnum;
-
 	private String pattern;
 
 	private List<String> excludedClass;
 
 	private List<String> excludedPackage;
-
-	public String getOutTypeEnum() {
-		return this.outTypeEnum;
-	}
-
-	public void setOutTypeEnum(final String outTypeEnum) {
-		if (STU.isEmpty(outTypeEnum)) {
-			throw new IllegalArgumentException("zlog.console.outTypeEnum 不能为空");
-		}
-		ZLOutTypeEnum.valueOf(outTypeEnum);
-		this.outTypeEnum = outTypeEnum;
-	}
 
 	public void setLevel(final String level) {
 		if (STU.isEmpty(level)) {
@@ -107,8 +93,7 @@ public class ZConsoleConf {
 
 	@Override
 	public String toString() {
-		return "ZConsoleConf [name=" + this.name + ", enable=" + this.enable + ", level=" + this.level + ", outTypeEnum=" + this.outTypeEnum
-				+ ", pattern=" + this.pattern + ", excludedClass=" + this.excludedClass + ", excludedPackage=" + this.excludedPackage
+		return "ZConsoleConf [name=" + this.name + ", enable=" + this.enable + ", level=" + this.level + ", pattern=" + this.pattern + ", excludedClass=" + this.excludedClass + ", excludedPackage=" + this.excludedPackage
 				+ "]";
 	}
 

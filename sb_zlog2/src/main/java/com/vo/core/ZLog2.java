@@ -69,7 +69,6 @@ public final class ZLog2 {
 		final ZFileConf fileConf = new ZFileConf();
 		fileConf.setEnable(enable);
 		fileConf.setName(R.readString("zlog.file.name"));
-		fileConf.setOutTypeEnum(R.readString("zlog.file.outTypeEnum"));
 		fileConf.setLevel(R.readString("zlog.file.level"));
 		fileConf.setPattern(R.readString("zlog.file.pattern"));
 		fileConf.setFilePath(R.readString("zlog.file.filePath"));
