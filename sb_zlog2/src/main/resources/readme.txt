@@ -1,3 +1,4 @@
+
 1、 新工程A中 maven引入依赖
 		<dependency>
 			<groupId>com.vo</groupId>
@@ -5,7 +6,11 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
-2、 配置文件 zlog.properties 按需配置，也可不配置，不配置则看下面的逻辑
+2、 	配置文件名称：zlog.properties 
+	支持零配置，也支持无此文件启动。
+	如果无此文件则，使用下面默认配置值，
+	如需自定义输出格式等，则新建 zlog.properties 文件并输出自定义配置
+	按需配置，也可不配置，不配置则看下面的逻辑
 	配置模板见：zlog.properties_template
 
 	查找此文件的顺序：
@@ -29,6 +34,7 @@
 	zlog.file.filePath=[程序运行目录下的log目录]
 	zlog.file.fileName=[程序名称.log]
 	zlog.file.fileSize=100
+
 
 	默认配置如上，如需自定义某个项，则新建 zlog.properties 文件覆盖掉对应的KYE即可
 
