@@ -81,10 +81,12 @@ public class R {
 			pd.setProperty("zlog.file.level", "TRACE");
 			pd.setProperty("zlog.file.pattern",
 					"[%DATE_TIME]-[%LEVEL]-[%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER] : [%MESSAGE]");
+			// FIXME 2025年9月2日 上午1:37:42 zhangzhen: getAppName和gFIlePath不对，
+			// 记得改：当前时取得目录名称，而非jar名称
 			pd.setProperty("zlog.file.filePath", gFilePath());
 			pd.setProperty("zlog.file.fileName", getAppName() + ".log");
 			pd.setProperty("zlog.file.fileSize", "100");
-
+	
 			properties = pd;
 
 		} else {
@@ -104,7 +106,7 @@ public class R {
 
 		return dir.getAbsolutePath();
 	}
-
+	
 	private static String getAppName() {
 		final String userDir = System.getProperty("user.dir");
 		final String projectName = userDir.substring(userDir.lastIndexOf(File.separator) + 1);
