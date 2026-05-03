@@ -1,11 +1,7 @@
 package com.vo.log.enums;
 
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
-
-import com.vo.core.ZGlobalCache;
-import com.vo.core.ZThreadMap.ZGlobalCacheTypeEnum;
+import com.vo.log.core.ZGlobalCache;
+import com.vo.log.core.ZThreadMap.ZGlobalCacheTypeEnum;
 
 /**
  * pattern枚举

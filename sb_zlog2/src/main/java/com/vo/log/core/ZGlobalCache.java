@@ -1,6 +1,6 @@
-package com.vo.core;
+package com.vo.log.core;
 
-import com.vo.core.ZThreadMap.ZGlobalCacheTypeEnum;
+import com.vo.log.core.ZThreadMap.ZGlobalCacheTypeEnum;
 
 /**
  *

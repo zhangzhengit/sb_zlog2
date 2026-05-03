@@ -2,7 +2,7 @@ package com.vo;
 
 import java.time.LocalDateTime;
 
-import com.vo.core.ZLog2;
+import com.vo.log.core.ZLog2;
 
 //@SpringBootTest
 class SbZlog2ApplicationTests {

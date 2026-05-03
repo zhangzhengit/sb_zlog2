@@ -1,8 +1,8 @@
-package com.vo;
+package com.vo.log;
 
 import java.time.LocalDateTime;
 
-import com.vo.core.ZLog2;
+import com.vo.log.core.ZLog2;
 
 /**
  *

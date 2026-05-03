@@ -1,4 +1,4 @@
-package com.vo.core;
+package com.vo.log.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import com.vo.handler.IZLogHandler;
+import com.vo.log.handler.IZLogHandler;
 
 /**
  *

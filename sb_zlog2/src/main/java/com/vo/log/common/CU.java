@@ -1,4 +1,4 @@
-package com.vo.common;
+package com.vo.log.common;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Set;
  * @date 2024年12月21日 下午10:01:20
  *
  */
-public class CU {
+ public class CU {
 
 	public static <T> boolean isEmpty(final Collection<T> collection) {
 		return (collection == null) || collection.isEmpty();

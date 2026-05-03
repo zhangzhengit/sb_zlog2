@@ -1,4 +1,4 @@
-package com.vo.read;
+package com.vo.log.common;
 
 import java.io.File;
 import java.io.FileInputStream;

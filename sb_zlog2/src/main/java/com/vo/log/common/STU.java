@@ -1,4 +1,4 @@
-package com.vo.common;
+package com.vo.log.common;
 
 /**
  * String相关
