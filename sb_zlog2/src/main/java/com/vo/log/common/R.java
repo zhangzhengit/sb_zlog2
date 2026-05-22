@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * 读取zlog的配置文件
@@ -53,46 +55,56 @@ public class R {
 
 	static {
 
-		Properties p1 = loadDirConfig(File.separator + CONFG_ZLOG2);
-		if (p1 == null) {
-			p1 = loadDirConfig(File.separator + ZLOG2);
-			if (p1 == null) {
-				p1 = loadPResources("/" + CONFG_ZLOG2);
-				if (p1 == null) {
-					p1 = loadPResources("/" + ZLOG2);
+		Properties p = loadDirConfig(File.separator + CONFG_ZLOG2);
+		if (p == null) {
+			p = loadDirConfig(File.separator + ZLOG2);
+			if (p == null) {
+				p = loadPResources("/" + CONFG_ZLOG2);
+				if (p == null) {
+					p = loadPResources("/" + ZLOG2);
 				}
 			}
 		}
 
-		if (p1 == null) {
-			// 2025年1月29日 上午12:03:34 zhangzhen : 不要提示了，而是使用内置的一个默认配置
-			// System.out.println("ERROR:zlog2启动失败,zlog.properties配置文件不存在,请编写此配置文件");
-			// System.exit(0);
-
-			final Properties pd = new Properties();
-			pd.setProperty("zlog.console.name", "CONSOLE");
-			pd.setProperty("zlog.console.enable", "true");
-			pd.setProperty("zlog.console.level", "TRACE");
-			pd.setProperty("zlog.console.pattern",
-					"[%DATE_TIME]-[%LEVEL]-[%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER] : [%MESSAGE]");
-
-			pd.setProperty("zlog.file.name", "FILE");
-			pd.setProperty("zlog.file.enable", "true");
-			pd.setProperty("zlog.file.level", "TRACE");
-			pd.setProperty("zlog.file.pattern",
-					"[%DATE_TIME]-[%LEVEL]-[%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER] : [%MESSAGE]");
-			// FIXME 2025年9月2日 上午1:37:42 zhangzhen: getAppName和gFIlePath不对，
-			// 记得改：当前时取得目录名称，而非jar名称
-			pd.setProperty("zlog.file.filePath", gFilePath());
-			pd.setProperty("zlog.file.fileName", getAppName() + ".log");
-			pd.setProperty("zlog.file.fileSize", "100");
-	
-			properties = pd;
-
+		if (p == null) {
+			properties = defaultProperties();
 		} else {
-			properties = p1;
+			properties = p;
+			setDefaultValue();
 		}
 
+	}
+
+	private static void setDefaultValue() {
+		final Properties pd = defaultProperties();
+		final Set<Entry<Object, Object>> es = pd.entrySet();
+		for (final Entry<Object, Object> entry : es) {
+			final boolean containsKey = properties.containsKey(entry.getKey());
+			if(!containsKey) {
+				properties.put(entry.getKey(), entry.getValue());
+			}
+		}
+	}
+
+	private static Properties defaultProperties() {
+		final Properties pd = new Properties();
+		pd.setProperty("zlog.console.name", "CONSOLE");
+		pd.setProperty("zlog.console.enable", "true");
+		pd.setProperty("zlog.console.level", "TRACE");
+		pd.setProperty("zlog.console.pattern",
+				"[%DATE_TIME]-[%LEVEL]-[%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER]:[%MESSAGE]");
+
+		pd.setProperty("zlog.file.name", "FILE");
+		pd.setProperty("zlog.file.enable", "true");
+		pd.setProperty("zlog.file.level", "TRACE");
+		pd.setProperty("zlog.file.pattern",
+				"[%DATE_TIME]-[%LEVEL]-[%THREAD]-[%CLASS_NAME::%METHOD@%LINE_NUMBER]:[%MESSAGE]");
+		// FIXME 2025年9月2日 上午1:37:42 zhangzhen: getAppName和gFIlePath不对，
+		// 记得改：当前时取得目录名称，而非jar名称
+		pd.setProperty("zlog.file.filePath", gFilePath());
+		pd.setProperty("zlog.file.fileName", getAppName() + ".log");
+		pd.setProperty("zlog.file.fileSize", "100");
+		return pd;
 	}
 
 	private static String gFilePath() {
@@ -106,7 +118,7 @@ public class R {
 
 		return dir.getAbsolutePath();
 	}
-	
+
 	private static String getAppName() {
 		final String userDir = System.getProperty("user.dir");
 		final String projectName = userDir.substring(userDir.lastIndexOf(File.separator) + 1);
