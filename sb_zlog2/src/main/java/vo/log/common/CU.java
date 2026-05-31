@@ -1,4 +1,4 @@
-package com.vo.log.common;
+package vo.log.common;
 
 import java.util.Collection;
 import java.util.List;

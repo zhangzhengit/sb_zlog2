@@ -1,4 +1,4 @@
-package com.vo.log.handler;
+package vo.log.handler;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,9 +11,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.vo.log.common.STU;
-import com.vo.log.conf.ZFileConf;
-import com.vo.log.enums.ZLOutTypeEnum;
+import vo.log.common.STU;
+import vo.log.conf.ZFileConf;
+import vo.log.enums.ZLOutTypeEnum;
 
 /**
  *

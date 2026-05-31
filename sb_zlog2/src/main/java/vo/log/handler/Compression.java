@@ -1,4 +1,4 @@
-package com.vo.log.handler;
+package vo.log.handler;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

@@ -1,4 +1,4 @@
-package com.vo.log.enums;
+package vo.log.enums;
 
 /**
  *

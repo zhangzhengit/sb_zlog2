@@ -1,8 +1,8 @@
-package com.vo.log.handler;
+package vo.log.handler;
 
-import com.vo.log.common.STU;
-import com.vo.log.conf.ZConsoleConf;
-import com.vo.log.enums.ZLOutTypeEnum;
+import vo.log.common.STU;
+import vo.log.conf.ZConsoleConf;
+import vo.log.enums.ZLOutTypeEnum;
 
 /**
  *

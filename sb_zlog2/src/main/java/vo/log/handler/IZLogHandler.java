@@ -1,6 +1,6 @@
-package com.vo.log.handler;
+package vo.log.handler;
 
-import com.vo.log.enums.ZLOutTypeEnum;
+import vo.log.enums.ZLOutTypeEnum;
 
 /**
  *

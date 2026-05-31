@@ -1,10 +1,10 @@
-package com.vo.log.enums;
+package vo.log.enums;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import com.vo.log.common.STU;
+import vo.log.common.STU;
 
 /**
  *

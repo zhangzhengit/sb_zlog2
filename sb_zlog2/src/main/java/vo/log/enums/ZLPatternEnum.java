@@ -1,7 +1,7 @@
-package com.vo.log.enums;
+package vo.log.enums;
 
-import com.vo.log.core.ZGlobalCache;
-import com.vo.log.core.ZThreadMap.ZGlobalCacheTypeEnum;
+import vo.log.core.ZGlobalCache;
+import vo.log.core.ZThreadMap.ZGlobalCacheTypeEnum;
 
 /**
  * pattern枚举

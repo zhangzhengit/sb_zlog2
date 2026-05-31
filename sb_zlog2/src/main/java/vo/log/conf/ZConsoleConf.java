@@ -1,10 +1,10 @@
-package com.vo.log.conf;
+package vo.log.conf;
 
 import java.util.List;
 import java.util.Objects;
 
-import com.vo.log.common.STU;
-import com.vo.log.enums.ZLogLevelEnum;
+import vo.log.common.STU;
+import vo.log.enums.ZLogLevelEnum;
 
 /**
  *
