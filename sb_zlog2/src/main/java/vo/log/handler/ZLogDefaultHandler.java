@@ -1,5 +1,9 @@
 package vo.log.handler;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import vo.log.common.STU;
 import vo.log.enums.ZLOutTypeEnum;
 import vo.log.enums.ZLPatternEnum;
@@ -103,6 +107,17 @@ public abstract class ZLogDefaultHandler implements IZLogHandler {
 
 		final StringBuilder mb = this.parseARGS(message, args);
 		final StringBuilder m = ZLPatternEnum.parse(pattern, mb.toString());
+
+		if ((args != null) && (args.length > 0) && (args[args.length - 1] instanceof Throwable)) {
+			final Throwable e = (Throwable) args[args.length - 1];
+
+			try (StringWriter stringWriter = new StringWriter();
+				PrintWriter writer = new PrintWriter(stringWriter)) {
+				e.printStackTrace(writer);
+				m.append("\n").append(stringWriter.toString());
+			} catch (final IOException ingore) {
+			}
+		}
 
 		return m.toString();
 	}
